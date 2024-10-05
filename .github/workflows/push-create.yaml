@@ -1,0 +1,41 @@
+name: Terraform Apply & Destroy
+run-name: Running Terraform Apply & Destroy by ${{ github.actor }}
+
+on:
+ push:
+   branches:
+     - main
+
+jobs:
+ Terraform-Create-And-Destroy:
+   runs-on: ubuntu-latest
+   steps:
+   - name: Checkout
+     uses: actions/checkout@v3
+
+   - name: Configure AWS credentials
+     uses: aws-actions/configure-aws-credentials@v1
+     with:
+       aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+       aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+       aws-region: us-east-1
+
+   - name: Setup Terraform
+     uses: hashicorp/setup-terraform@v3
+
+   - name: Terraform Init
+     run: terraform init
+
+   - name: Terraform Apply
+     run: terraform apply -no-color -auto-approve
+
+   - name: Export terraform outputs
+     id: tfout
+     run: |
+       terraform output
+
+   - name: Wait for 15min
+     run: sleep 900
+
+   - name: Terraform Destroy
+     run: terraform destroy -no-color -auto-approve
