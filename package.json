@@ -18,5 +18,9 @@
   "homepage": "https://github.com/luqmannnn/simple-node-application#readme",
   "dependencies": {
     "express": "^4.21.0"
-  }
+  },
+  "devDependencies": {},
+  "keywords": [
+    "nodejsapp"
+  ]
 }
