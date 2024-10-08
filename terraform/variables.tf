@@ -30,7 +30,7 @@ variable "instance_type" {
 variable "key_name" {
   description = "Name of EC2 key pair pem file"
   type        = string
-  default     = "luqman-us-east-1-keypair"
+  default     = "luqman-useast1-13072024"
 }
 
 variable "subnet_name" {
