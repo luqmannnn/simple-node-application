@@ -17,6 +17,9 @@ jobs:
     outputs:
       LATEST_TAG: ${{ steps.get_latest_tag.outputs.LATEST_TAG }}
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
       - name: Fetch All Tags
         run: git fetch --tags
 
