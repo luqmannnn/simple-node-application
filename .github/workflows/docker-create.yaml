@@ -55,7 +55,7 @@ jobs:
 
     - name: Docker build and tag
       run: |
-        docker build -t ${{ env.IMAGE_NAME }} .
+        docker build -t ${{ env.IMAGE_NAME }}:${{ needs.Get-Tag.outputs.LATEST_TAG }}.${{ github.run_number }} .
         docker tag ${{ env.IMAGE_NAME }}:${{ needs.Get-Tag.outputs.LATEST_TAG }}.${{ github.run_number }} public.ecr.aws/sctp-sandbox/${{ env.IMAGE_NAME }}:${{ needs.Get-Tag.outputs.LATEST_TAG }}.${{ github.run_number }}
 
     - name: Docker publish to ECR
