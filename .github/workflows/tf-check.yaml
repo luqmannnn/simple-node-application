@@ -2,9 +2,12 @@ name: Terraform Checks
 run-name: Running Terraform Checks by ${{ github.actor }}
 
 on:
- pull_request:
-   branches:
-     - main
+  pull_request:
+    branches:
+      - main
+    paths:
+      - terraform/**
+    
 
 jobs:
   Initial-Checks:
