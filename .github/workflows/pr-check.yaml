@@ -60,7 +60,7 @@ jobs:
 
           echo "| Job Name        | Status |" >> $GITHUB_STEP_SUMMARY
           echo "|-----------------|--------|" >> $GITHUB_STEP_SUMMARY
-          echo "| tf-create       | $TF_STATUS |" >> $GITHUB_STEP_SUMMARY
+          echo "| tf-check       | $TF_STATUS |" >> $GITHUB_STEP_SUMMARY
           echo '' >> $GITHUB_STEP_SUMMARY
 
           echo '## Job ran by: ${{ github.actor }}' >> $GITHUB_STEP_SUMMARY
