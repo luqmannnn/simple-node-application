@@ -11,6 +11,8 @@ on:
 jobs:
   Terraform-Create-And-Destroy:
     runs-on: ubuntu-latest
+    outputs:
+      status: ${{ job.status }}
     defaults:
       run:
         working-directory: terraform
@@ -40,8 +42,27 @@ jobs:
       run: |
         terraform output
 
-    - name: Wait for 15min
-      run: sleep 900
+    - name: Wait for 5min
+      run: sleep 300
 
     - name: Terraform Destroy
       run: terraform destroy -no-color -auto-approve
+
+  Summary:
+    needs: [Terraform-Create-And-Destroy]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Adding markdown
+        run: |
+          TF_STATUS=${{ needs.Terraform-Create-And-Destroy.outputs.status }}
+
+          echo '## 🚀 Preparing Build Summary 🚀' >> $GITHUB_STEP_SUMMARY
+          echo '' >> $GITHUB_STEP_SUMMARY
+
+          echo "| Job Name        | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "|-----------------|--------|" >> $GITHUB_STEP_SUMMARY
+          echo "| tf-create       | $TF_STATUS |" >> $GITHUB_STEP_SUMMARY
+          echo "| tf-destroy       | $TF_STATUS |" >> $GITHUB_STEP_SUMMARY
+          echo '' >> $GITHUB_STEP_SUMMARY
+
+          echo '## Job ran by: ${{ github.actor }}' >> $GITHUB_STEP_SUMMARY
